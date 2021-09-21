@@ -16,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('article', UserController::class);
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/bi-mat', function () {
+    return 'bí mật @@';
+})->middleware(['auth','role:admin']);
