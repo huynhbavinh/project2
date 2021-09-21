@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\VideoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/bi-mat', function () {
     return 'bí mật @@';
 })->middleware(['auth','role:admin']);
+
+Route::resource('/article', ArticleController::class)->names('article');
+Route::resource('/category', CategoryController::class)->names('category');
