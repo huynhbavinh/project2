@@ -92,4 +92,8 @@ class ArticleController extends Controller
     {
         //
     }
+    public function move(Request $request){
+        $this->authorize('move');
+        return 'moving';
+    }
 }

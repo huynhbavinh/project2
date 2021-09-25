@@ -32,5 +32,7 @@ Route::get('/bi-mat', function () {
 Route::resource('/article', ArticleController::class)->names('article');
 Route::resource('/category', CategoryController::class)->names('category');
 
+Route::get('/move',[ArticleController::class,'move'])->name('move')->middleware('auth');
+
 // Route::get('/google-login', [SocialController::class,'googleLogin'])->name('google-login');
 // Route::get('/google_callbacks',[SocialController::class,'processGoogleLogin']);

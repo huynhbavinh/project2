@@ -10,6 +10,15 @@ class ArticlePolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user){
+        if($user->isAdmin){
+            return true;
+        }
+        if($user->blocked){
+            return false;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -71,7 +80,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        //
+        return true;
     }
 
     /**
@@ -95,6 +104,9 @@ class ArticlePolicy
      */
     public function forceDelete(User $user, Article $article)
     {
-        //
+        return true;
+    }
+    public function move(){
+        return true;
     }
 }

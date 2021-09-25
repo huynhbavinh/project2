@@ -1,9 +1,6 @@
-<style>
-    .card{
-        border-bottom: 3px solid red ;
-        border-radius: 10px;  
-    }
-</style>
+@extends('layouts.app')
+
+@section('content')
 <div class="">
     <ol>
         @foreach ($articles as $article)
@@ -17,7 +14,11 @@
                 <p>
                     {{ $article->content }}
                 </p>
+                @can('update', $article)
+                    <a href=" {{ route('article.edit',['article'=>$article]) }} ">Edit</a>
+                @endcan
             </li>
         @endforeach
     </ol>
 </div>
+@endsection
