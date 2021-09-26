@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\VideoController;
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,12 @@ Route::get('/bi-mat', function () {
 Route::resource('/article', ArticleController::class)->names('article');
 Route::resource('/category', CategoryController::class)->names('category');
 
+Route::resource('/order', OrderController::class)->names('order')->middleware('auth');
+
+
 Route::get('/move',[ArticleController::class,'move'])->name('move')->middleware('auth');
 
 // Route::get('/google-login', [SocialController::class,'googleLogin'])->name('google-login');
 // Route::get('/google_callbacks',[SocialController::class,'processGoogleLogin']);
+
+
