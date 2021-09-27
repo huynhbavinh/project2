@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -41,5 +43,14 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+    protected function authenticated(Request $request, $user)
+    {
+        $role = $user->role->name;
+        $RedirectRoutes =[
+            'admin' => '/admin/dashboard',
+            'user' => '/home',
+        ];
+        return redirect($RedirectRoutes[$role]);
     }
 }

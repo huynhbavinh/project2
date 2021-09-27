@@ -18,6 +18,8 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->integer('category_id');
+            $table->integer('user_id');
+
             $table->softDeletes();
             $table->timestamps();
         });

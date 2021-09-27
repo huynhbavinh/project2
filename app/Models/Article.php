@@ -10,6 +10,7 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable =[
+        'user_id',
         'title',
         'content',
         'category_id',
@@ -19,7 +20,7 @@ class Article extends Model
         return $this->belongsToManyMany(Tag::class,'article_tags');
     }
     public function category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
     public function comments(){
         return $this->morphMany(Comment::class,'commentable');

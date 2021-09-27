@@ -6,7 +6,7 @@
         {{ trans('article.create') }}
     </h3>
     <div>
-        <form action=" {{ route('article.store') }} " method="post">
+        <form action=" {{ route('userArticle.store') }} " method="post">
             @csrf
             <input type="text" class="@error('title') error @enderror " name="title" value="{{old('title')}}">
             @error('title')
@@ -17,9 +17,15 @@
             <br>
             <select name="category_id" id="">
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" @if (old('category_id') == $category->id)
+                    {{-- <option value="{{ $category->id }}" @if (old('category_id') == $category->id)
                         selected                    
-                    @endif >{{ $category->name }}</option>
+                    @endif >{{ $category->name }}</option> --}}
+                    @include('user.article.category_select_item',
+                    [
+                        'category' => $category,
+                        'text'=> '',
+                    ]
+                    )
                 @endforeach
             </select>
             <br>

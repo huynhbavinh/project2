@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ArticleController extends Controller
+class HomeArticleController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Article::class,'article');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        return view('article.listArticle')->with('articles',$articles);
+        
     }
 
     /**
@@ -30,8 +24,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('article.createArticle')->with('categories',$categories);
+        //
     }
 
     /**
@@ -42,9 +35,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Article();
-        $article->fill($request->all());
-        $article->save();
+        //
     }
 
     /**
@@ -55,8 +46,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //list article to category
-        return $article->title;
+        //
     }
 
     /**
@@ -91,9 +81,5 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         //
-    }
-    public function move(Request $request){
-        $this->authorize('move');
-        return 'moving';
     }
 }

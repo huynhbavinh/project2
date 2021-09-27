@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Order;
+use App\Models\role;
+use App\Models\Article;
 
 class User extends Authenticatable
 {
@@ -45,6 +47,12 @@ class User extends Authenticatable
     ];
     public function orders(){
         return $this->hasMany(Order::class);
+    }
+    public function role(){
+        return $this->belongsTo(role::class);
+    }
+    public function articles(){
+        return $this->hasMany(Article::class);
     }
 
 }

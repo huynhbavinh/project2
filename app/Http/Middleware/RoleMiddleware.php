@@ -16,11 +16,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next,...$roles)
     {
-        $userRole = auth()->user()->role;
-        echo $userRole;
-        if(!in_array($userRole,$roles)){
-            abort(404,'oh shjt get back');
+        $userRole = auth()->user()->role->name;
+        if(in_array($userRole ,$roles)){
+            return $next($request);
         }
-        return $next($request);
+        abort(403);
+
     }
 }
