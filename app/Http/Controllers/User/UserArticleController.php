@@ -43,7 +43,11 @@ class UserArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article();
+        $article->fill($request->all());
+        auth()->user()->articles()->save($article);
+
+        return view('home');
     }
 
     /**

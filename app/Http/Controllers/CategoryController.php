@@ -13,10 +13,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-        return view('menu')->with('categories',$categories);
+        $categoryQuery = Category::query();
+        if($request->keyword){
+            $categoryQuery->where('name','like','%'.$request->keyword.'%');
+        }
+        $categories = $categoryQuery->get();
+        return response()->json($categories);
     }
 
     /**

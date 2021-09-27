@@ -37,7 +37,11 @@ Route::group(['prefix'=>'user','middleware'=>['auth','role:user']],function(){
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+        ->name('home');
+Route::get('/resource/category', [App\Http\Controllers\CategoryController::class, 'index'])
+        ->name('getCategoryResource');
+
 
 // Route::get('/bi-mat', function () {
 //     return 'bí mật @@';
