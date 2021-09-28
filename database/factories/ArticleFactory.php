@@ -24,7 +24,7 @@ class ArticleFactory extends Factory
         return [
             'title' =>$this->faker->title(),
             'content' =>$this->faker->text(30),
-            'category_id'=>$this->faker->numberBetween(1,10),
+            'category_id'=>$this->faker->numberBetween(1,5),
         ];
     }
 }

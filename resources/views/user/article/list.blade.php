@@ -8,14 +8,11 @@
                 <h2>
                     {{ $article->title }}
                 </h2>
-                <h3>
-                    {{ $article->category->name }}
-                </h3>
                 <p>
                     {{ $article->content }}
                 </p>
                 @can('update', $article)
-                    <a href=" {{ route('article.edit',['article'=>$article]) }} ">Edit</a>
+                    <a href="">Edit</a>
                 @endcan
             </li>
         @endforeach

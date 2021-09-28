@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\CategoryController;
@@ -25,10 +26,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix'=>'admin','middleware'=>['auth','role:admin']],function(){
-    Route::get('/dashboard',[HomeController::class,'index'])->name('adminHome');
+Route::group(['prefix'=>'admin','middleware'=>['auth','checkBlock','role:admin']],function(){
+    Route::get('/dashboard',[HomeController::class,'index'])->name('admin.Home');
+    Route::get('/users',[AdminUserController::class,'index'])->name('admin.manageUser');
+    Route::get('/users/block/{user}',[AdminUserController::class,'blockUser'])->name('admin.blockUser');
+    Route::get('/users/unblock/{user}',[AdminUserController::class,'unBlockUser'])->name('admin.unBlockUser');
+
 });
-Route::group(['prefix'=>'user','middleware'=>['auth','role:user']],function(){
+Route::group(['prefix'=>'user','middleware'=>['auth','checkBlock','role:user']],function(){
     Route::resource('article', UserArticleController::class)->names('userArticle');
 
 });
@@ -38,7 +43,7 @@ Route::group(['prefix'=>'user','middleware'=>['auth','role:user']],function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-        ->name('home');
+        ->name('homePage')->middleware(['auth','checkBlock']);
 Route::get('/resource/category', [App\Http\Controllers\CategoryController::class, 'index'])
         ->name('getCategoryResource');
 

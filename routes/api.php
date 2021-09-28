@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 // đăng nhập vào web = api
-Route::post('/login',[ApiLoginController::class,'login']);
+Route::post('/google/login',[ApiLoginController::class,'login']);
 Route::post('/logout',[ApiLoginController::class,'logout'])->middleware('auth:sanctum');
 
 //

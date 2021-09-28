@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
-use Illuminate\Http\Request;
 use App\Models\AppConst;
-use App\Models\Category;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-class UserArticleController extends Controller
+class AdminUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +16,8 @@ class UserArticleController extends Controller
      */
     public function index()
     {
-        $articles = auth()
-                    ->user()
-                    ->articles()
-                    ->paginate(AppConst::DEFAULT_PER_PAGE);
-        return view('user.article.list')->with('articles',$articles);
+        $users = User::where('id','!=',auth()->user()->id )->paginate(AppConst::DEFAULT_PER_PAGE);
+        return view('admin.user.list')->with('users',$users);
     }
 
     /**
@@ -31,8 +27,7 @@ class UserArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::whereNull('parent_id')->with('childrenCategory')->get();
-        return view('user.article.create')->with('categories',$categories);
+        //
     }
 
     /**
@@ -43,21 +38,16 @@ class UserArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Article();
-        $article->fill($request->all());
-        auth()->user()->articles()->save($article);
-        $article->category()->attach($request->category_id);
-
-        return view('home');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
         //
     }
@@ -65,10 +55,10 @@ class UserArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
         //
     }
@@ -77,10 +67,10 @@ class UserArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -88,11 +78,23 @@ class UserArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
         //
+    }
+    public function blockUser(Request $request,User $user){
+        $user->block = true;
+        $user->save();
+
+        return redirect()->route('admin.manageUser');
+    }
+    public function unBlockUser(Request $request,User $user){
+        $user->block = false;
+        $user->save();
+
+        return redirect()->route('admin.manageUser');
     }
 }
