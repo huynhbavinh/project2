@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\AppConst;
-use App\Models\Category;
-use Illuminate\Validation\Rules\Exists;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\Category;
 
 class UserArticleController extends Controller
 {
