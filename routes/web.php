@@ -26,6 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
 Route::group(['prefix'=>'admin','middleware'=>['auth','checkBlock','role:admin']],function(){
     Route::get('/dashboard',[HomeController::class,'index'])->name('admin.Home');
     Route::get('/users',[AdminUserController::class,'index'])->name('admin.manageUser');
@@ -35,12 +36,10 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','checkBlock','role:admin']
 });
 Route::group(['prefix'=>'user','middleware'=>['auth','checkBlock','role:user']],function(){
     Route::resource('article', UserArticleController::class)->names('userArticle');
+    Route::post('upload-thumbnail', [UserArticleController::class,'uploadImage'])->name('userUploadImg');
+
 
 });
-
-
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
         ->name('homePage')->middleware(['auth','checkBlock']);

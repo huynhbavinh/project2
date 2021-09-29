@@ -22,6 +22,7 @@ window.Vue = require('vue').default;
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('login-component', require('./components/Auth/LoginComponent.vue').default);
 Vue.component('category-selector', require('./components/CategorySelector.vue').default);
+Vue.component('image-uploader', require('./components/imageUploader.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

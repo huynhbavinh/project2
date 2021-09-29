@@ -6,7 +6,7 @@
         {{ trans('article.create') }}
     </h3>
     <div>
-        <form action=" {{ route('userArticle.store') }} " method="post">
+        <form action=" {{ route('userArticle.store') }} " method="post" enctype="multipart/form-data">
             @csrf
             <input type="text" class="@error('title') error @enderror " name="title" value="{{old('title')}}">
             @error('title')
@@ -28,6 +28,10 @@
                     )
                 @endforeach
             </select>
+            <image-uploader></image-uploader>
+            <br>
+            <input type="checkbox" name="is_vip">
+            <span>V.I.P Active</span>
             <br>
             <button type="submit">submit</button>
         </form>

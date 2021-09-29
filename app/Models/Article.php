@@ -16,6 +16,8 @@ class Article extends Model
         'title',
         'content',
         'category_id',
+        'is_vip',
+        'thumbnail',
     ];
 
     public function tags(){

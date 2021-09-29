@@ -7,6 +7,8 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\AppConst;
 use App\Models\Category;
+use Illuminate\Validation\Rules\Exists;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserArticleController extends Controller
 {
@@ -44,11 +46,26 @@ class UserArticleController extends Controller
     public function store(Request $request)
     {
         $article = new Article();
+
         $article->fill($request->all());
+        if ($request->has('is_vip')) {
+            $article->is_vip=true;
+        }
         auth()->user()->articles()->save($article);
         $article->category()->attach($request->category_id);
+        //$article->thumbnail =
 
         return view('home');
+    }
+    public function uploadImage(Request $request){
+        $filename = $request->file('thumbnail')->hashName();
+        $img =Image::make($request->file('thumbnail')->getRealPath());
+        // crop the best fitting 1:1 ratio (200x200) and resize to 200x200 pixel
+        $img->fit(250);   
+        // save the same file as jpg with default quality
+        $img->save(public_path('/storage/thumbnails/'.$filename));
+
+        return response()->json(['filename'=>$filename]);
     }
 
     /**
