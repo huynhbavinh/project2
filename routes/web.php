@@ -45,13 +45,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
         ->name('homePage')->middleware(['auth','checkBlock']);
 Route::get('/resource/category', [App\Http\Controllers\CategoryController::class, 'index'])
         ->name('getCategoryResource');
-
+Route::resource('/article', HomeArticleController::class)->names('article');
 
 // Route::get('/bi-mat', function () {
 //     return 'bí mật @@';
 // })->middleware(['auth','role:admin']);
 
-// Route::resource('/article', ArticleController::class)->names('article');
+
 // Route::resource('/category', CategoryController::class)->names('category');
 
 // Route::resource('/order', OrderController::class)->names('order')->middleware('auth');

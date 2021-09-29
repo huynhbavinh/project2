@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\ArticleCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -53,6 +54,9 @@ class UserArticleController extends Controller
         auth()->user()->articles()->save($article);
         $article->category()->attach($request->category_id);
         //$article->thumbnail =
+        ArticleCreated::dispatch($article);
+
+
 
         return view('home');
     }

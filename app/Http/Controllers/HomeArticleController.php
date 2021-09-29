@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppConst;
 use App\Models\Article;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 
 class HomeArticleController extends Controller
@@ -14,7 +16,10 @@ class HomeArticleController extends Controller
      */
     public function index()
     {
-        
+        // $article = Cache::rememberForever('listArticle_1', function () {
+        //     return Article::paginate(AppConst::DEFAULT_PER_PAGE);
+        // });
+        // return $article->category->name;
     }
 
     /**
@@ -46,7 +51,9 @@ class HomeArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        $article = Cache::rememberForever('article', function () use ($article){
+            return $article->title;
+        });
     }
 
     /**
